@@ -198,145 +198,191 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "clear") {
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div class="container">
+      <div class="title">Registro Clientes</div>
+      <div class="content">
         <form class="" action="?act=save" method="post" name="form1">
-          <h1>Registro Clientes</h1>
-          <input type="hidden" name="id" <?php
-                if (isset($id) && $id != null || $id != "") {
-                    echo "value=\"{$id}\"";
-                }
-                ?> >
-          <hr>
-          Nome:
-          <input type="text" name="nome" <?php
-            if (isset($nome) && $nome != null || $nome != "") {
-                echo "value=\"{$nome}\"";
-            }
-            ?> >
-          <br>
-          CPF:
-          <input type="text" name="cpf" <?php
-            if (isset($cpf) && $cpf != null || $cpf != "") {
-
-                echo "value=\"{$cpf}\"";
-            }
-            ?>>
-          <br>
-          Data de nascimento:
-          <input type="date" name="dataNasc" <?php
-            if (isset($dataNasc) && $dataNasc != null || $dataNasc != "") {
-                echo "value=\"{$dataNasc}\"";
-            }
-            ?>>
-          <br>
-          E-mail:
-          <input type="text" name="email" <?php
-            if (isset($email) && $email != null || $email != "") {
-                echo "value=\"{$email}\"";
-            }
-            ?>>
-          <br>
-          Endereço:
-          <br>
-          Cep:
-          <input type="text" name="cep" <?php
-            if (isset($cep) && $cep != null || $cep != "") {
-                echo "value=\"{$cep}\"";
-            }
-            ?>>
-            <input type="submit" name="buscaCep" value="Pesquisar">
-
-          <br>
-          logradouro:
-          <input type="text" name="logradouro" <?php
-            if (isset($logradouro) && $logradouro != null || $logradouro != "") {
-                echo "value=\"{$logradouro}\"";
-            }
-            ?>>
-          Número:
-          <input type="INT" name="numero" style="width: 25px"<?php
-            if (isset($numero) && $numero != null || $numero != "") {
-                echo "value=\"{$numero}\"";
-            }
-            ?>>
-          Bairro:
-          <input type="text" name="bairro" <?php
-            if (isset($bairro) && $bairro != null || $bairro != "") {
-                echo "value=\"{$bairro}\"";
-            }
-            ?>>
-          <br>
-          Cidade:
-          <input type="text" name="cidade" <?php
-            if (isset($cidade) && $cidade != null || $cidade != "") {
-                echo "value=\"{$cidade}\"";
-            }
-            ?>>
-          UF:
-          <input type="text" name="uf" <?php
-            if (isset($uf) && $uf != null || $uf != "") {
-                echo "value=\"{$uf}\"";
-            }
-            ?>>
-          <br>
-          <br>
-          <input type="submit" name="" value="Registrar">
-          </form>
-          <form class="" action="?act=clear" method="post">
-            <input type="submit" name="" value="Limpar">
-          </form>
-          <br>
-          <form class="" action="?act=search" method="post" >
-            <input type="text" name="cpf" value="">
-            <input type="submit" name="" value="Pesquisar cliente">
-          </form>
-          <br>
-          <table border="1" width="100%">
-            <tr>
-              <th rowspan="2">Nome</th>
-              <th rowspan="2">Cpf</th>
-              <th rowspan="2">Data de Nascimento</th>
-              <th rowspan="2">E-mail</th>
-              <th colspan="6"> Endereço </th>
-            </tr>
-            <tr>
-              <th>Logradouro</th>
-              <th>Número</th>
-              <th>Bairro</th>
-              <th>Cidade</th>
-              <th>UF</th>
-              <th>Cep</th>
-            </tr>
-
-            <?php
-            try {
-
-                $stmt = $conexao->prepare("SELECT * FROM cliente");
-
-                    if ($stmt->execute()) {
-                        while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
-                           echo "<tr>";
-                           echo "<td>".$rs->nome."</td><td>".$rs->cpf."</td><td>"
-                                      .$rs->dataNasc."</td><td>".$rs->email."</td><td>"
-                                      .$rs->logradouro."</td><td>".$rs->numero."</td><td>"
-                                      .$rs->bairro."</td><td>".$rs->cidade."</td><td>"
-                                      .$rs->uf."</td><td>".$rs->cep
-                                      ."</td><td><center><a href=\"  ?act=searchLink&id=" . $rs->id . " \">[Alterar]</a>"
-                                      ."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                                      ."<a href=\" ?act=del&id=" . $rs->id . " \">[Excluir]</a></center></td>";
-                           echo "</tr>";
-                         }
-
-                   } else {
-                        echo "Erro: Não foi possível recuperar os dados do banco de dados";
+          <div class="user-detail">
+            <div class="id">
+              <input type="hidden" name="id" <?php
+                    if (isset($id) && $id != null || $id != "") {
+                        echo "value=\"{$id}\"";
                     }
-                } catch (PDOException $erro) {
-                    echo "Erro: ".$erro->getMessage();
-                  }
-              ?>
-          </table>
+                    ?> >
+            </div>
+
+          <div class="input-box">
+            <span class="details">Nome</span>
+            <input type="text" name="nome" <?php
+              if (isset($nome) && $nome != null || $nome != "") {
+                  echo "value=\"{$nome}\"";
+              }
+              ?> >
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">CPF</span>
+            <input type="text" name="cpf" <?php
+              if (isset($cpf) && $cpf != null || $cpf != "") {
+
+                  echo "value=\"{$cpf}\"";
+              }
+              ?>>
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">Data de Nascimento</span>
+            <input type="date" name="dataNasc" <?php
+              if (isset($dataNasc) && $dataNasc != null || $dataNasc != "") {
+                  echo "value=\"{$dataNasc}\"";
+              }
+              ?>>
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="text" name="email" <?php
+              if (isset($email) && $email != null || $email != "") {
+                  echo "value=\"{$email}\"";
+              }
+              ?>>
+          </div>
+          <br>
+          <div class="input-box">
+            <div class="endereco">
+              <span class="details">Endereço</span>
+            </div>
 
 
+            <span class="details">Cep</span>
+            <input type="text" name="cep" <?php
+              if (isset($cep) && $cep != null || $cep != "") {
+                  echo "value=\"{$cep}\"";
+              }
+              ?>>
+          </div>
+          <div class="button">
+            <input type="submit" name="buscaCep" value="Pesquisar">
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">Logradouro</span>
+            <input type="text" name="logradouro" <?php
+              if (isset($logradouro) && $logradouro != null || $logradouro != "") {
+                  echo "value=\"{$logradouro}\"";
+              }
+              ?>>
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">Número</span>
+            <input type="INT" name="numero" style="width: 25px"<?php
+              if (isset($numero) && $numero != null || $numero != "") {
+                  echo "value=\"{$numero}\"";
+              }
+              ?>>
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">Bairro</span>
+            <input type="text" name="bairro" <?php
+              if (isset($bairro) && $bairro != null || $bairro != "") {
+                  echo "value=\"{$bairro}\"";
+              }
+              ?>>
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">Cidade</span>
+            <input type="text" name="cidade" <?php
+              if (isset($cidade) && $cidade != null || $cidade != "") {
+                  echo "value=\"{$cidade}\"";
+              }
+              ?>>
+          </div>
+          <br>
+          <div class="input-box">
+            <span class="details">UF</span>
+            <input type="text" name="uf" <?php
+              if (isset($uf) && $uf != null || $uf != "") {
+                  echo "value=\"{$uf}\"";
+              }
+              ?>>
+          </div>
+            </div>
+          <br>
+          <div class="button">
+            <input type="submit" name="" value="Registrar">
+          </div>
+          </form>
+          <div class="form2">
+            <form class="" action="?act=clear" method="post">
+              <div class="button">
+                <input type="submit" name="" value="Limpar">
+              </div>
+            </form>
+          </div>
 
+          <br>
+          <div class="form3">
+            <form class="" action="?act=search" method="post" >
+              <div class="user-details">
+                <input type="text" name="cpf" value="">
+              </div>
+              <div class="button">
+                <input type="submit" name="" value="Pesquisar cliente">
+              </div>
+            </form>
+          </div>
 
+          </div>
+        </div>
+          <br>
+          <div class="tabela">
+            <table border="1" width="100%">
+              <tr>
+                <th rowspan="2">Nome</th>
+                <th rowspan="2">Cpf</th>
+                <th rowspan="2">Data de Nascimento</th>
+                <th rowspan="2">E-mail</th>
+                <th colspan="6"> Endereço </th>
+              </tr>
+              <tr>
+                <th>Logradouro</th>
+                <th>Número</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+                <th>UF</th>
+                <th>Cep</th>
+              </tr>
+
+              <?php
+              try {
+
+                  $stmt = $conexao->prepare("SELECT * FROM cliente");
+
+                      if ($stmt->execute()) {
+                          while ($rs = $stmt->fetch(PDO::FETCH_OBJ)) {
+                             echo "<tr>";
+                             echo "<td>".$rs->nome."</td><td>".$rs->cpf."</td><td>"
+                                        .$rs->dataNasc."</td><td>".$rs->email."</td><td>"
+                                        .$rs->logradouro."</td><td>".$rs->numero."</td><td>"
+                                        .$rs->bairro."</td><td>".$rs->cidade."</td><td>"
+                                        .$rs->uf."</td><td>".$rs->cep
+                                        ."</td><td><center><a href=\"  ?act=searchLink&id=" . $rs->id . " \">[Alterar]</a>"
+                                        ."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                                        ."<a href=\" ?act=del&id=" . $rs->id . " \">[Excluir]</a></center></td>";
+                             echo "</tr>";
+                           }
+
+                     } else {
+                          echo "Erro: Não foi possível recuperar os dados do banco de dados";
+                      }
+                  } catch (PDOException $erro) {
+                      echo "Erro: ".$erro->getMessage();
+                    }
+                ?>
+            </table>
+          </div>
   </body>
 </html>
